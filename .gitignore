@@ -1,0 +1,9 @@
+# local environment and large data caches (rebuilt from the public archive on first use)
+.venv/
+cache/
+logs/
+__pycache__/
+*.pyc
+.pytest_cache/
+.claude/
+reports/_*.json

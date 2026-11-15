@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PARALLAX Observatory</title>
+<meta name="description" content="Time-domain SPHEREx viewer and physical-inference engine for faint moving sources and microlensing.">
+<link rel="icon" href="img/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/parallax.css?v=6">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/observatory" aria-label="PARALLAX home">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 27 L15.2 6.4" stroke-width="1.6"/><path d="M28 27 L16.8 6.4" stroke-width="1.6"/><path d="M4 27 H28" stroke-width="1.6" opacity=".45"/><circle cx="16" cy="5" r="2.2" fill="currentColor" stroke="none"/><circle cx="21.5" cy="8.2" r="1.1" fill="currentColor" stroke="none" opacity=".55"/></svg>
+    <b>PARALLAX</b>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#/observatory" data-view="obs">Observatory</a>
+    <a href="#/motion" data-view="motion">Motion</a>
+    <a href="#/gravity" data-view="gravity">Gravity</a>
+    <a href="#/results" data-view="results">Results</a>
+    <a href="#/about" data-view="about">Data &amp; Methods</a>
+  </nav>
+  <div class="status" id="status" aria-live="polite"><span><i class="dot"></i>checking archives…</span></div>
+</header>
+
+<!-- =========================================================== OBSERVATORY -->
+<main id="obs" class="view">
+  <aside class="pane" aria-label="Field controls">
+    <section class="sect">
+      <h3>Sky position</h3>
+      <form id="coordForm" autocomplete="off">
+        <input class="field mono" id="coordInput" placeholder="RA Dec  ·  269.4463 4.7679  ·  08h55m10.8s -07d14m42s" aria-label="Right ascension and declination">
+        <div class="row">
+          <label class="k" for="fovSel">Field</label>
+          <select class="field" id="fovSel">
+            <option value="32">32 px · 3.3′</option>
+            <option value="48">48 px · 4.9′</option>
+            <option value="64" selected>64 px · 6.6′</option>
+            <option value="96">96 px · 9.8′</option>
+            <option value="128">128 px · 13.1′</option>
+          </select>
+        </div>
+        <div class="row">
+          <label class="k" for="relSel">Release</label>
+          <select class="field" id="relSel"><option value="dr1" selected>DR1 (2025-05 → 2026-05)</option><option value="qr3">QR3 (quick release)</option></select>
+        </div>
+        <div class="row" style="margin-top:10px"><button class="btn primary" type="submit" style="width:100%">Load observations</button></div>
+      </form>
+      <div class="targets" id="targetList" aria-label="Challenge test targets"></div>
+    </section>
+    <section class="sect">
+      <h3>Detectors <span class="r" id="detCount"></span></h3>
+      <div class="chips" id="detChips"></div>
+    </section>
+    <section class="sect">
+      <h3>Display</h3>
+      <div class="row"><label class="k">Mode</label>
+        <div class="seg" id="modeSeg" role="tablist"><button data-m="frame" class="on">Frame</button><button data-m="diff">Difference</button><button data-m="coadd">Co-add</button></div>
+        <p class="note" id="modeNote" hidden></p>
+      </div>
+      <div class="row"><label class="k" for="stretchSel">Stretch</label>
+        <select class="field" id="stretchSel"><option value="asinh" selected>asinh</option><option value="linear">linear</option><option value="sqrt">sqrt</option><option value="log">log</option></select>
+      </div>
+      <div class="row"><label class="k" for="loSl">Black</label><input type="range" id="loSl" min="0" max="20" step="0.25" value="1"></div>
+      <div class="row"><label class="k" for="hiSl">White</label><input type="range" id="hiSl" min="90" max="100" step="0.05" value="99.6"></div>
+      <div class="row"><label class="k">Scale</label>
+        <div class="seg" id="scaleSeg"><button data-s="frame" class="on">Per frame</button><button data-s="global">Fixed</button></div>
+      </div>
+      <div class="row"><label class="k">Overlays</label>
+        <div class="chips"><button class="chip on" id="ovTrack"><i style="background:var(--amber)"></i>Track</button><button class="chip" id="ovFlags"><i style="background:var(--bad)"></i>Flags</button><button class="chip on" id="ovGrid"><i style="background:var(--dim)"></i>Compass</button></div>
+      </div>
+    </section>
+    <section class="sect">
+      <h3>Share</h3>
+      <div class="note">Fields are addressable: <span class="mono" id="permalink">#/observatory?ra=…&amp;dec=…</span></div>
+    </section>
+  </aside>
+
+  <section class="centre">
+    <div class="stage" id="stage">
+      <canvas id="imgCanvas"></canvas>
+      <canvas id="ovCanvas"></canvas>
+      <div class="badge" id="badge"></div>
+      <div class="readout mono" id="readout" hidden></div>
+      <div class="tools"><button class="btn sm ghost" id="resetView" title="Reset pan and zoom">Fit</button><button class="btn sm ghost" id="smoothBtn" title="Toggle bilinear smoothing">Smooth</button></div>
+      <div class="empty" id="stageEmpty">
+        <h2>SPHEREx Sky Explorer</h2>
+        <p>Enter a position or choose a test target. PARALLAX finds every SPHEREx exposure covering that point and plays the field in time order, keeping wavelength, detector and observing time attached to each frame.</p>
+        <div class="progress" id="loadBar" hidden><div></div></div>
+        <p class="mono dim" id="loadMsg"></p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-head">
+        <button class="btn sm" id="playBtn" aria-label="Play">Play</button>
+        <button class="btn sm ghost" id="prevBtn" aria-label="Previous frame">◀</button>
+        <button class="btn sm ghost" id="nextBtn" aria-label="Next frame">▶</button>
+        <select class="field" id="fpsSel" style="width:82px" aria-label="Playback speed"><option value="2">2 fps</option><option value="4" selected>4 fps</option><option value="8">8 fps</option><option value="15">15 fps</option></select>
+        <span class="when" id="whenLbl">—</span>
+        <span class="sp"></span>
+        <span class="note">Click a tick to select · <b>Shift-click</b> sets the comparison frame</span>
+      </div>
+      <svg id="tlSvg" height="74" role="img" aria-label="Observation timeline"></svg>
+    </div>
+  </section>
+
+  <aside class="pane right" aria-label="Inspector">
+    <section class="sect">
+      <h3>Observation</h3>
+      <dl class="kv" id="frameKv"><dt>—</dt><dd>No field loaded</dd></dl>
+    </section>
+    <section class="sect">
+      <h3>Spectrum <span class="r" id="specPos">click the image</span></h3>
+      <div class="row" style="margin-bottom:6px">
+        <div class="seg" id="specSeg"><button data-v="wave" class="on">vs λ</button><button data-v="time">vs time</button></div>
+        <label class="note" style="display:flex;gap:6px;align-items:center;margin-left:auto"><input type="checkbox" id="followPm"> follow proper motion</label>
+      </div>
+      <svg class="chart" id="specSvg" viewBox="0 0 312 190" preserveAspectRatio="none"></svg>
+      <div class="legend" id="specLegend"></div>
+      <p class="note" id="specNote"></p>
+    </section>
+    <section class="sect">
+      <h3>Astrometry</h3>
+      <p class="note">Fit the target's motion from per-frame PSF centroids and compare with the catalogue prediction.</p>
+      <button class="btn sm" id="astroBtn" disabled>Measure proper motion</button>
+      <div id="astroOut" style="margin-top:10px"></div>
+    </section>
+  </aside>
+</main>
+
+<!-- ================================================================ MOTION -->
+<main id="motion" class="view page"><div class="page-inner" id="motionInner"></div></main>
+<!-- =============================================================== GRAVITY -->
+<main id="gravity" class="view page"><div class="page-inner" id="gravityInner"></div></main>
+<!-- =============================================================== RESULTS -->
+<main id="results" class="view page"><div class="page-inner" id="resultsInner"></div></main>
+<!-- ================================================================= ABOUT -->
+<main id="about" class="view page"><div class="page-inner prose" id="aboutInner"></div></main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

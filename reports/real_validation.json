@@ -1,0 +1,209 @@
+{
+ "barnard": {
+  "title": "Barnard's Star proper motion (known-object recovery)",
+  "summary": "54 centroided exposures in 3 visit(s) spanning 262 d. Measured \u03bc\u03b1* = -2404 \u00b1 601, \u03bc\u03b4 = 12183 \u00b1 597 mas/yr vs Gaia DR3 -802, 10362 mas/yr (parallax fixed to 547 mas). Difference -1603, +1821 mas/yr; residual rms 1.79\" (0.29 px). Each visit's median position agrees with the Gaia-predicted position (proper motion + parallax) to within 1.2\u2033 (0.2 px), while the star moved ~7.4\u2033 between first and last visit. Short-wavelength detectors (D1-D3, few points, saturated core) show offsets up to 3.5\u2033. Including a per-visit systematic floor of 0.67\u2033 per axis (\u00b11673 mas/yr on proper motion), the differences are -0.9\u03c3 and +1.0\u03c3; the total motion is detected at 7\u03c3. The floor is estimated from offsets relative to the Gaia prediction, so this consistency check is not independent; the robust results are the detected motion and the \u22641.2\u2033 per-visit agreement. Diagnostic chosen after seeing these offsets (not pre-specified): D5+D6 only gives -2777 \u00b1 467, 11145 \u00b1 463 mas/yr.",
+  "field": "5efce3458dc9",
+  "per_visit_offsets": [
+   {
+    "mjd": 60911.285101732334,
+    "n": 24,
+    "dxi_arcsec": 1.2204705697263372,
+    "deta_arcsec": -0.2912296916117312
+   },
+   {
+    "mjd": 61117.48913137487,
+    "n": 28,
+    "dxi_arcsec": -0.4116120333464856,
+    "deta_arcsec": -0.2001404217674434
+   },
+   {
+    "mjd": 61164.6087187645,
+    "n": 2,
+    "dxi_arcsec": -0.4723016637470597,
+    "deta_arcsec": -0.547267667276994
+   }
+  ],
+  "systematic_floor_arcsec": 0.6678030771240263,
+  "pm_systematic_masyr": 1672.8480340672897,
+  "parallax_model_check": "parallax_factors agrees with astropy GCRS(obsgeoloc=spacecraft) to <0.1 arcsec in xi, <0.3 in eta",
+  "per_detector_offsets": [
+   {
+    "det": 1,
+    "n": 3,
+    "dxi_arcsec": -0.963023486621886,
+    "deta_arcsec": -3.510140913075357
+   },
+   {
+    "det": 2,
+    "n": 4,
+    "dxi_arcsec": 1.0314612670845142,
+    "deta_arcsec": 1.2243613797686
+   },
+   {
+    "det": 3,
+    "n": 2,
+    "dxi_arcsec": -0.03830966549738268,
+    "deta_arcsec": 1.7982955918874453
+   },
+   {
+    "det": 5,
+    "n": 21,
+    "dxi_arcsec": -0.21451844926527397,
+    "deta_arcsec": -0.29580508814339135
+   },
+   {
+    "det": 6,
+    "n": 24,
+    "dxi_arcsec": -0.1449653032689849,
+    "deta_arcsec": -0.23055990702457763
+   }
+  ],
+  "fit_D5_D6_posthoc": {
+   "xi0_arcsec": -0.06731810565619689,
+   "eta0_arcsec": 0.6459861434012751,
+   "pmra_masyr": -2776.667754768685,
+   "pmdec_masyr": 11144.77571601742,
+   "e_pmra_masyr": 467.1533822047396,
+   "e_pmdec_masyr": 462.8244244311576,
+   "chi2": 4284.734176143616,
+   "dof": 86,
+   "error_scale": 7.05850482894746,
+   "n": 45,
+   "t_ref_mjd": 61027.6,
+   "residual_rms_arcsec": 1.186032067725769
+  },
+  "fit": {
+   "xi0_arcsec": 0.05356391974872422,
+   "eta0_arcsec": 1.0544556948249237,
+   "pmra_masyr": -2404.475304521624,
+   "pmdec_masyr": 12183.33408743594,
+   "e_pmra_masyr": 600.5014538143895,
+   "e_pmdec_masyr": 597.1717961706797,
+   "chi2": 9320.894930029324,
+   "dof": 104,
+   "error_scale": 9.466994756089202,
+   "n": 54,
+   "t_ref_mjd": 61027.6,
+   "residual_rms_arcsec": 1.7870417659679367
+  },
+  "expected": {
+   "pmra_masyr": -801.551,
+   "pmdec_masyr": 10362.394,
+   "plx_mas": 546.976,
+   "source": "Gaia DR3 4472832130942575872",
+   "xi0_arcsec": -0.053482071285042516,
+   "eta0_arcsec": 0.7793588928554753
+  },
+  "n_visits": 3,
+  "consistency_sigma": 2.8655961189082593,
+  "table": {
+   "columns": [
+    "Quantity",
+    "SPHEREx (this work)",
+    "\u00b1 1\u03c3",
+    "Gaia DR3"
+   ],
+   "rows": [
+    [
+     "\u03bc\u03b1* [mas/yr]",
+     -2404.475304521624,
+     600.5014538143895,
+     -801.551
+    ],
+    [
+     "\u03bc\u03b4 [mas/yr]",
+     12183.33408743594,
+     597.1717961706797,
+     10362.394
+    ],
+    [
+     "systematic floor on \u03bc [mas/yr]",
+     1672.8480340672897,
+     "",
+     ""
+    ],
+    [
+     "residual rms [arcsec]",
+     1.7870417659679367,
+     "",
+     ""
+    ]
+   ]
+  }
+ },
+ "provenance": "real",
+ "barnard_search": {
+  "title": "Moving-object search on the real Barnard field (exploratory)",
+  "field": "5efce3458dc9",
+  "summary": "Searched 74 exposures of one visit (1,334,025 trajectories, |v| between 0.42 and 2.0 arcsec/day) after subtracting and masking 200 static sources, in 36 s. Top bank statistic 242.9; maximum on time-scrambled frames 239.2; 1 of 8 listed candidates exceed it. No candidate is claimed; vetting would need a second visit and real-null calibration.",
+  "scrambled_null_max": 239.18323582917333,
+  "status": "Exploratory",
+  "n_candidates": 8,
+  "candidates": [
+   {
+    "xi0": -9.224545095111603,
+    "eta0": -43.047877110520815,
+    "vxi": -1.661758717629842,
+    "veta": 0.0,
+    "z_bank": 242.93587952349884,
+    "above_scrambled_null": true
+   },
+   {
+    "xi0": 3.074848365037201,
+    "eta0": -43.047877110520815,
+    "vxi": 1.2463190382223814,
+    "veta": 0.0,
+    "z_bank": 235.02146184397392,
+    "above_scrambled_null": false
+   },
+   {
+    "xi0": -24.59878692029761,
+    "eta0": -36.89818038044641,
+    "vxi": -1.661758717629842,
+    "veta": 0.830879358814921,
+    "z_bank": 229.7786638217422,
+    "above_scrambled_null": false
+   },
+   {
+    "xi0": 46.12272547555802,
+    "eta0": -9.224545095111603,
+    "vxi": 0.4154396794074605,
+    "veta": 0.4154396794074605,
+    "z_bank": 216.89974679866904,
+    "above_scrambled_null": false
+   },
+   {
+    "xi0": 24.59878692029761,
+    "eta0": 43.047877110520815,
+    "vxi": -1.2463190382223814,
+    "veta": 0.830879358814921,
+    "z_bank": 215.68955335203626,
+    "above_scrambled_null": false
+   },
+   {
+    "xi0": 39.97302874548362,
+    "eta0": -21.523938555260408,
+    "vxi": 1.661758717629842,
+    "veta": 1.661758717629842,
+    "z_bank": 214.22997876403798,
+    "above_scrambled_null": false
+   },
+   {
+    "xi0": 15.374241825186006,
+    "eta0": -39.97302874548362,
+    "vxi": -2.0771983970373027,
+    "veta": -1.2463190382223814,
+    "z_bank": 210.58370325912355,
+    "above_scrambled_null": false
+   },
+   {
+    "xi0": 12.299393460148805,
+    "eta0": 49.19757384059522,
+    "vxi": -0.830879358814921,
+    "veta": 0.4154396794074605,
+    "z_bank": 204.53523569920102,
+    "above_scrambled_null": false
+   }
+  ]
+ }
+}

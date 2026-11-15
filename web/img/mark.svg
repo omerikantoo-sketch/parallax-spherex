@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round">
+  <!-- two lines of sight from separated vantage points converge near a source;
+       the source is displaced from their naive intersection: parallax -->
+  <path d="M4 27 L15.2 6.4" stroke-width="1.6"/>
+  <path d="M28 27 L16.8 6.4" stroke-width="1.6"/>
+  <path d="M4 27 H28" stroke-width="1.6" opacity=".45"/>
+  <circle cx="16" cy="5" r="2.2" fill="currentColor" stroke="none"/>
+  <circle cx="21.5" cy="8.2" r="1.1" fill="currentColor" stroke="none" opacity=".55"/>
+</svg>

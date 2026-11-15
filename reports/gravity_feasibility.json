@@ -1,0 +1,116 @@
+{
+ "experiment": "E4 gravity feasibility (order of magnitude)",
+ "provenance": "model estimate",
+ "summary": "Yield = (2/pi) N tau / <tE> x detection efficiency from the E3 injection-recovery benchmark. Inputs are ranges, not measurements; the central column uses mid values.",
+ "scenarios": [
+  {
+   "name": "Galactic bulge, all-sky survey",
+   "cadence": "wide",
+   "n_stars": 10000000.0,
+   "n_range": [
+    3000000.0,
+    30000000.0
+   ],
+   "tau": 2e-06,
+   "tau_range": [
+    1e-06,
+    3e-06
+   ],
+   "tE_days": 20.0,
+   "events_per_yr": 232.5253718572591,
+   "events_range": [
+    34.87880577858887,
+    1046.364173357666
+   ],
+   "efficiency": 0.6166666666666667,
+   "detectable_per_yr": 143.3906459786431,
+   "detectable_range": [
+    21.50859689679647,
+    645.2579069038941
+   ]
+  },
+  {
+   "name": "Galactic disk |b|<5 deg, all-sky survey",
+   "cadence": "wide",
+   "n_stars": 100000000.0,
+   "n_range": [
+    30000000.0,
+    300000000.0
+   ],
+   "tau": 1e-07,
+   "tau_range": [
+    3e-08,
+    3e-07
+   ],
+   "tE_days": 40.0,
+   "events_per_yr": 58.131342964314776,
+   "events_range": [
+    5.231820866788328,
+    523.182086678833
+   ],
+   "efficiency": 0.6166666666666667,
+   "detectable_per_yr": 35.84766149466078,
+   "detectable_range": [
+    3.226289534519469,
+    322.62895345194704
+   ]
+  },
+  {
+   "name": "South ecliptic pole deep field (LMC direction, if overlapping)",
+   "cadence": "deep",
+   "n_stars": 100000.0,
+   "n_range": [
+    30000.0,
+    1000000.0
+   ],
+   "tau": 3e-08,
+   "tau_range": [
+    1e-08,
+    1e-07
+   ],
+   "tE_days": 40.0,
+   "events_per_yr": 0.01743940288929443,
+   "events_range": [
+    0.0017439402889294433,
+    0.5813134296431477
+   ],
+   "efficiency": 1.0,
+   "detectable_per_yr": 0.01743940288929443,
+   "detectable_range": [
+    0.0017439402889294433,
+    0.5813134296431477
+   ]
+  },
+  {
+   "name": "North ecliptic pole deep field (high latitude)",
+   "cadence": "deep",
+   "n_stars": 30000.0,
+   "n_range": [
+    10000.0,
+    100000.0
+   ],
+   "tau": 3e-09,
+   "tau_range": [
+    1e-09,
+    1e-08
+   ],
+   "tE_days": 30.0,
+   "events_per_yr": 0.0006975761155717773,
+   "events_range": [
+    7.750845728575304e-05,
+    0.0077508457285753035
+   ],
+   "efficiency": 1.0,
+   "detectable_per_yr": 0.0006975761155717773,
+   "detectable_range": [
+    7.750845728575304e-05,
+    0.0077508457285753035
+   ]
+  }
+ ],
+ "efficiency_source": {
+  "deep": "reports/gravity_benchmark_deep.json, joint method, u0=1.0",
+  "wide": "reports/gravity_benchmark_wide.json, joint method, u0=1.0"
+ },
+ "caveats": "Efficiency was measured on a bright (16 AB at 2 um), isolated synthetic source with 2% noise; real bulge photometry at 6.2 arcsec pixels is confusion-limited, so bulge/disk numbers are upper bounds. The most realistic near-term use is spectral blend decomposition of events already found by ground surveys (OGLE, MOA, KMTNet) that happen to fall in a SPHEREx visit. No event has been searched for or found in real SPHEREx data in this project. With the wide-survey cadence a 'detection' is a significant brightening during one visit; the timescale is then poorly constrained (E3: median |ln tE error| about 1, a factor ~2.7), so most such events could not be characterised from SPHEREx alone."
+}
